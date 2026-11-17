@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>نت راديوس — إدارة ومراقبة شبكات الإنترنت اللاسلكي</title>
+  <meta name="description" content="نت راديوس: نظام واحد لمشتركي شبكتك وأبراجها ومحاسبتها. خريطة حية للأبراج والصحون، تنبيه واتساب عند العطل، وكلاء ومحاسبة، وصفحة «حسابي» لكل مشترك.">
+  <meta name="theme-color" content="#06231D">
+  <!-- معاينة: لا تُفهرس في محركات البحث. يُحذف هذا السطر يوم الإطلاق على الدومين -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta property="og:title" content="نت راديوس — شبكتك كلها بشاشة واحدة">
+  <meta property="og:description" content="نظام إدارة ومراقبة لشبكات الإنترنت اللاسلكي: المشتركون والأبراج والمحاسبة في لوحة واحدة.">
+  <meta property="og:image" content="assets/hero/poster.jpg">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/brand/favicon.ico" sizes="any">
+  <link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
+  <link rel="preload" href="assets/fonts/IBMPlexSansArabic-700-44280.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/IBMPlexSansArabic-400-42848.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/hero/poster-m.jpg" as="image" media="(max-width: 760px)">
+  <link rel="preload" href="assets/hero/poster.jpg" as="image" media="(min-width: 761px)">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <a class="nav-logo" href="#top" aria-label="نت راديوس">
+    <img class="logo-on-dark" src="assets/brand/logo-dark.svg" alt="نت راديوس" width="130" height="50">
+    <img class="logo-on-light" src="assets/brand/logo.svg" alt="" width="130" height="50" aria-hidden="true">
+  </a>
+  <nav class="nav-links" id="navLinks" aria-label="أقسام الصفحة">
+    <a href="#noc">مراقبة الشبكة</a>
+    <a href="#features">المزايا</a>
+    <a href="#pricing">الأسعار</a>
+    <a href="#contact">تواصل</a>
+  </nav>
+  <div class="nav-actions">
+    <a class="btn btn-primary btn-sm" href="demo/" target="_blank" rel="noopener">جرّب اللوحة</a>
+    <button class="nav-toggle" id="navToggle" aria-label="القائمة" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ الافتتاح: مشهد المدينة مع السكرول ============ -->
+  <section class="hero" id="hero" aria-label="نت راديوس">
+    <div class="hero-sticky">
+      <div class="hero-poster" aria-hidden="true"></div>
+      <canvas class="hero-canvas" id="heroCanvas" aria-hidden="true"></canvas>
+      <div class="hero-scrim" aria-hidden="true"></div>
+      <div class="hero-side" id="heroSide" aria-hidden="true"></div>
+      <div class="hero-dim" id="heroDim" aria-hidden="true"></div>
+
+      <div class="stage stage-a" data-stage="a">
+        <span class="chip"><i class="dot"></i>نظام إدارة ومراقبة شبكات الإنترنت اللاسلكي</span>
+        <h1>شبكتك كلها<br><em>بشاشة واحدة</em></h1>
+        <p class="lead">المشتركون والأبراج والوكلاء والمحاسبة في لوحة واحدة، بالعربية، تعمل على جهاز عندك أو على سيرفر مستضاف.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="demo/" target="_blank" rel="noopener">جرّب اللوحة الآن
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a>
+          <a class="btn btn-glass" href="https://wa.me/963994398849?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D9%85%D8%B9%D8%B1%D9%81%D8%A9%20%D8%A7%D9%84%D9%85%D8%B2%D9%8A%D8%AF%20%D8%B9%D9%86%20%D9%86%D8%AA%20%D8%B1%D8%A7%D8%AF%D9%8A%D9%88%D8%B3" target="_blank" rel="noopener">تواصل واتساب</a>
+        </div>
+        <p class="hint-line">بيانات تجريبية · بلا تسجيل · تفتح من المتصفح</p>
+      </div>
+
+      <div class="stage stage-card" data-stage="b">
+        <span class="num">01</span>
+        <h2>كل برج يبثّ، وأنت تراه</h2>
+        <p>الأبراج والصحون والوصلات على خريطة حية. ما يتعطل يتغيّر لونه في لحظته، وتعرف من تأثر من مشتركيك.</p>
+      </div>
+
+      <div class="stage stage-card" data-stage="c">
+        <span class="num">02</span>
+        <h2>تعرف العطل قبل أن يتصل بك المشترك</h2>
+        <p>رسالة واتساب باسم البرج وعدد المتأثرين في أي ساعة، ورسالة ثانية حين يعود.</p>
+      </div>
+
+      <div class="stage stage-window" data-stage="d">
+        <div class="window">
+          <div class="window-bar"><i></i><i></i><i></i><span>مراقبة الشبكة · نت راديوس</span></div>
+          <img src="assets/screens/noc-map.webp" alt="شاشة مراقبة الشبكة في نت راديوس: خريطة الأبراج وقائمة الأعطال" width="1600" height="1000" loading="eager" decoding="async">
+        </div>
+        <div class="window-cap">
+          <h2>وهذا كله أمامك في لوحة واحدة</h2>
+          <a class="btn btn-primary" href="demo/" target="_blank" rel="noopener">افتح اللوحة التجريبية</a>
+        </div>
+      </div>
+
+      <div class="hero-progress" aria-hidden="true"><i id="heroBar"></i></div>
+      <div class="scroll-hint" id="scrollHint" aria-hidden="true"><span></span>مرّر للأسفل</div>
+    </div>
+  </section>
+
+  <!-- ============ أرقام ============ -->
+  <section class="stats" aria-label="أرقام">
+    <div class="wrap stats-grid">
+      <div class="stat reveal"><b><span class="ltr">+1000</span></b><span>مشترك متصل على أول شبكة تعمل بالنظام</span></div>
+      <div class="stat reveal"><b><span class="ltr">13</span> برجاً</b><span>و<span class="ltr">140</span> جهازاً تحت المراقبة في تلك الشبكة</span></div>
+      <div class="stat reveal"><b><span class="ltr">6</span> ثوانٍ</b><span>لعودة <span class="ltr">1500</span> مشترك معاً بعد انقطاع، في اختبار الحمل</span></div>
+      <div class="stat reveal"><b><span class="ltr">3</span> لغات</b><span>العربية والإنجليزية والتركية، للوحة ولصفحة المشترك</span></div>
+    </div>
+  </section>
+
+  <!-- ============ مراقبة الشبكة ============ -->
+  <section class="feature" id="noc">
+    <div class="wrap feature-row">
+      <div class="feature-text reveal">
+        <span class="eyebrow">مراقبة الشبكة</span>
+        <h2>الشبكة كلها على خريطة واحدة</h2>
+        <p>ترى كل برج وسيكتور وصحن ووصلة، وكم مشتركاً على كل واحد منها. حين يسقط جهاز تعرف أيّ جهاز هو، ولماذا، ومن انقطع بسببه.</p>
+        <ul class="ticks">
+          <li>تنبيه واتساب عند العطل وعند العودة، باسم الجهاز وعدد المتأثرين</li>
+          <li>«فحص الشبكة» يكتشف الأجهزة وما الموصول بكل منفذ</li>
+          <li>إشارة الصحون والتشويش على السيكتورات وحرارة الأجهزة</li>
+          <li>شاشة عرض للتلفاز في مكتب الشبكة</li>
+        </ul>
+      </div>
+      <figure class="shot reveal"><img src="assets/screens/noc-diagram.webp" alt="مخطط الشبكة في نت راديوس" width="1600" height="1000" loading="lazy" decoding="async"></figure>
+    </div>
+  </section>
+
+  <!-- ============ المزايا ============ -->
+  <section class="feature alt" id="features">
+    <div class="wrap feature-row flip">
+      <div class="feature-text reveal">
+        <span class="eyebrow">المشتركون والباقات</span>
+        <h2>كل مشترك في صفحة واحدة واضحة</h2>
+        <p>باقته وتاريخ انتهائه واستهلاكه وجلسته الحالية وبرجه. تجدّد له أو تغيّر سرعته بضغطة، والتغيير يصل الراوتر في لحظته.</p>
+        <ul class="ticks">
+          <li>«لماذا لا يتصل؟» يقول لك السبب بكلام واضح، لا برموز</li>
+          <li>تجديد تلقائي، ومهلة، وصفحة «انتهى اشتراكك» للمنتهين</li>
+          <li>كروت هوتسبوت تُصمَّم وتُطبع من داخل اللوحة</li>
+        </ul>
+      </div>
+      <figure class="shot reveal"><img src="assets/screens/subscriber-top.webp" alt="صفحة المشترك في نت راديوس" width="1600" height="1000" loading="lazy" decoding="async"></figure>
+    </div>
+  </section>
+
+  <section class="feature">
+    <div class="wrap feature-row">
+      <div class="feature-text reveal">
+        <span class="eyebrow">الوكلاء والمحاسبة</span>
+        <h2>تعرف أين كل ليرة</h2>
+        <p>وكلاء ونقاط بيع بأرصدتهم، صناديق وديون وتقارير مبيعات. كل عملية مسجّلة باسم من قام بها ووقتها.</p>
+        <ul class="ticks">
+          <li>وكيل يبيع ويجدّد لمشتركيه من جواله، ضمن رصيده</li>
+          <li>صلاحيات لكل موظف: ماذا يرى وماذا يعدّل</li>
+          <li>تقارير يومية وشهرية جاهزة للطباعة والتصدير</li>
+        </ul>
+      </div>
+      <figure class="shot reveal"><img src="assets/screens/accounting.webp" alt="المحاسبة في نت راديوس" width="1600" height="1000" loading="lazy" decoding="async"></figure>
+    </div>
+  </section>
+
+  <section class="feature alt">
+    <div class="wrap feature-row flip">
+      <div class="feature-text reveal">
+        <span class="eyebrow">«حسابي» للمشترك</span>
+        <h2>مشتركك يخدم نفسه من جواله</h2>
+        <p>صفحة لكل مشترك تفتح من المتصفح بلا تطبيق: يرى باقته وما بقي منها واستهلاكه، ويصله تذكير الانتهاء على واتساب.</p>
+        <ul class="ticks">
+          <li>أقل اتصالات على مكتبك: الجواب أمام المشترك</li>
+          <li>ولك أنت: اللوحة كاملة على الجوال، أينما كنت</li>
+        </ul>
+      </div>
+      <div class="phones reveal">
+        <figure class="phone"><img src="assets/screens/m-portal.webp" alt="صفحة حسابي على الجوال" width="600" height="1298" loading="lazy" decoding="async"></figure>
+        <figure class="phone back"><img src="assets/screens/m-dashboard.webp" alt="لوحة المدير على الجوال" width="600" height="1298" loading="lazy" decoding="async"></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="feature">
+    <div class="wrap feature-row">
+      <div class="feature-text reveal">
+        <span class="eyebrow">مهندس الشبكة</span>
+        <h2>مساعد ذكي يقرأ راوترك ويشرح العطل</h2>
+        <p>تسأله بالعربية عن مشكلة في الشبكة، فيقرأ حال الراوتر ويشرح السبب ويقترح الحل خطوة خطوة.</p>
+        <ul class="ticks">
+          <li>أوامر القراءة تُنسخ بزر واحد</li>
+          <li>أوامر التعديل شرحٌ تراجعه أنت قبل أي تنفيذ</li>
+        </ul>
+      </div>
+      <figure class="shot reveal"><img src="assets/screens/assistant.webp" alt="مهندس الشبكة في نت راديوس" width="1600" height="1000" loading="lazy" decoding="async"></figure>
+    </div>
+  </section>
+
+  <!-- ============ وأكثر ============ -->
+  <section class="more">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">وأكثر</span>
+        <h2>ما يحتاجه صاحب الشبكة، جاهز من أول يوم</h2>
+      </div>
+      <div class="cards">
+        <article class="card reveal"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.2 7.9-8 9-4.8-1.1-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg><h3>وضع الطوارئ</h3><p>إن انقطع السيرفر، يُدخل الراوتر مشتركيك بنفسه حتى يعود.</p></article>
+        <article class="card reveal"><svg viewBox="0 0 24 24"><path d="M4 7c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3z"/><path d="M4 7v10c0 1.7 3.6 3 8 3s8-1.3 8-3V7"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg><h3>نسخ احتياطي تلقائي</h3><p>نسخة كل يوم، وأخرى خارج السيرفر على تيليغرام.</p></article>
+        <article class="card reveal"><svg viewBox="0 0 24 24"><path d="M12 4v10"/><path d="M8 10l4 4 4-4"/><path d="M5 19h14"/></svg><h3>تحديث بضغطة</h3><p>يحدّث نفسه من اللوحة، ويعود وحده إن لم تعمل النسخة الجديدة.</p></article>
+        <article class="card reveal"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/></svg><h3>شاشة العرض</h3><p>حال الشبكة والأعطال على تلفاز المكتب، تتحدّث وحدها.</p></article>
+        <article class="card reveal"><svg viewBox="0 0 24 24"><path d="M6 11V8a6 6 0 1112 0v3"/><rect x="4" y="11" width="16" height="9" rx="2"/></svg><h3>VPN للألعاب والبرامج</h3><p>تمرير برامج تختارها أنت عبر مخرج خاص، بضغطة لكل برنامج.</p></article>
+        <article class="card reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg><h3>افتح أي جهاز من بعيد</h3><p>صفحة أي سيكتور أو صحن أو راوتر من أي مدينة، بلا عنوان ثابت.</p></article>
+        <article class="card reveal"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/></svg><h3>سيرفر احتياطي</h3><p>جهاز ثانٍ يتابع الأول ويأخذ مكانه يوم العطل.</p></article>
+        <article class="card reveal"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg><h3>رسائل واتساب</h3><p>ترحيب وتذكير انتهاء وتجديد للمشترك، وتنبيهات الأعطال لفريقك.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ محلي أو مستضاف ============ -->
+  <section class="host">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">أين يعمل؟</span>
+        <h2>عندك في المكتب، أو على سيرفر مستضاف</h2>
+      </div>
+      <div class="host-grid">
+        <article class="host-card reveal">
+          <h3>على جهاز عندك</h3>
+          <p>ميني بي سي أو لابتوب في مكتب الشبكة. يعمل حتى لو انقطع الإنترنت عن المكتب، وبياناتك عندك.</p>
+          <ul class="ticks"><li>تثبيت من فلاشة واحدة</li><li>ينطفئ بأمان عند نفاد البطارية ويقلع وحده</li></ul>
+        </article>
+        <article class="host-card dark reveal">
+          <h3>على سيرفر مستضاف</h3>
+          <p>تفتح لوحتك من أي مكان على عنوانك الخاص. الراوترات تتصل بالسيرفر بأنفاق مشفّرة يصنعها النظام.</p>
+          <ul class="ticks"><li>لا عنوان ثابت ولا فتح منافذ عندك</li><li>سيرفر مستقل لكل شبكة</li></ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ الانتقال ============ -->
+  <section class="move" id="move">
+    <div class="wrap feature-row flip">
+      <div class="feature-text reveal">
+        <span class="eyebrow">الانتقال</span>
+        <h2>من نظامك القديم في ليلة واحدة</h2>
+        <ol class="steps">
+          <li><b>استورد</b><span>مشتركوك وباقاتهم ووكلاؤك وأرصدتهم تنتقل كما هي.</span></li>
+          <li><b>جرّب بأمان</b><span>في «وضع التجربة» يبقى نظامك القديم هو من يقرر، وترى كل شيء هنا.</span></li>
+          <li><b>حوّل</b><span>بضغطة على الراوتر. المتصلون لا ينقطعون، والرجوع بضغطة مثلها.</span></li>
+        </ol>
+      </div>
+      <figure class="shot reveal"><img src="assets/screens/import.webp" alt="شاشة الاستيراد في نت راديوس" width="1600" height="1000" loading="lazy" decoding="async"></figure>
+    </div>
+  </section>
+
+  <!-- ============ الأسعار ============ -->
+  <section class="pricing" id="pricing">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">الأسعار</span>
+        <h2>سعر واحد في السنة، حسب حجم شبكتك</h2>
+        <p class="section-sub">لوحتك على سيرفر مستضاف. الحجم هو عدد المشتركين المتصلين في اللحظة نفسها، لا عدد الحسابات. وكل المزايا في كل الأحجام.</p>
+      </div>
+      <div class="price-box reveal">
+        <p class="sizes-label">كم مشتركاً يتصل عندك في وقت واحد؟</p>
+        <div class="sizes" id="sizes" role="radiogroup" aria-label="عدد المشتركين المتصلين">
+          <button type="button" role="radio" aria-checked="false" data-users="650" data-price="200">650</button>
+          <button type="button" role="radio" aria-checked="true" data-users="1000" data-price="250">1000</button>
+          <button type="button" role="radio" aria-checked="false" data-users="1500" data-price="300">1500</button>
+          <button type="button" role="radio" aria-checked="false" data-users="2000" data-price="350">2000</button>
+          <button type="button" role="radio" aria-checked="false" data-users="2500" data-price="400">2500</button>
+          <button type="button" role="radio" aria-checked="false" data-users="3000" data-price="450">3000</button>
+        </div>
+        <div class="price-main">
+          <div class="price-side">
+            <span class="price-label">حتى <b class="ltr" id="pUsers">1000</b> مشترك متصل</span>
+            <div class="price-num"><span class="ltr"><b id="pPrice">250</b><i>$</i></span><small>في السنة</small></div>
+            <span class="price-month">أي أقل من <b class="ltr"><span id="pMonth">21</span> $</b> في الشهر</span>
+            <a class="btn btn-primary" id="pBtn" href="https://wa.me/963994398849" target="_blank" rel="noopener">اطلب هذا الحجم</a>
+          </div>
+          <ul class="ticks price-list">
+            <li>لوحتك على الإنترنت بعنوانك الخاص، تفتحها من أي مكان</li>
+            <li>كل مزايا النظام، بلا استثناء</li>
+            <li>مدراء وموظفون ووكلاء بلا حدّ للعدد</li>
+            <li>مراقبة الشبكة والخريطة وتنبيهات واتساب</li>
+            <li>صفحة «حسابي» لكل مشترك</li>
+            <li>نسخ احتياطي تلقائي وتحديثات النظام</li>
+            <li>استيراد مشتركيك من نظامك القديم</li>
+          </ul>
+        </div>
+        <p class="price-note">السعر لسنة كاملة على سيرفر مستضاف، ومعه السيرفر والنسخ الاحتياطي والتحديثات. أكثر من <span class="ltr">3000</span> متصل، أو تريده على جهاز عندك؟ <a href="https://wa.me/963994398849" target="_blank" rel="noopener">تواصل معنا</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ التجربة ============ -->
+  <section class="demo" id="demo">
+    <div class="wrap demo-box reveal">
+      <img class="demo-mark" src="assets/brand/mark-dark.svg" alt="" aria-hidden="true">
+      <h2>جرّب اللوحة بنفسك الآن</h2>
+      <p>لوحة كاملة ببيانات تجريبية تفتح في متصفحك. اضغط وعدّل وجرّب كما تشاء: لا تسجيل، ولا شيء ينكسر.</p>
+      <a class="btn btn-light" href="demo/" target="_blank" rel="noopener">افتح اللوحة التجريبية
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a>
+    </div>
+  </section>
+
+  <!-- ============ تواصل ============ -->
+  <section class="contact" id="contact">
+    <div class="wrap contact-box reveal">
+      <h2>جاهز لتشغيل شبكتك على نت راديوس؟</h2>
+      <p>اكتب لنا عدد مشتركيك ونوع راوترك، ونجهّز لك لوحتك.</p>
+      <a class="btn btn-primary" id="waBtn" href="https://wa.me/963994398849?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D9%85%D8%B9%D8%B1%D9%81%D8%A9%20%D8%A7%D9%84%D9%85%D8%B2%D9%8A%D8%AF%20%D8%B9%D9%86%20%D9%86%D8%AA%20%D8%B1%D8%A7%D8%AF%D9%8A%D9%88%D8%B3" target="_blank" rel="noopener">
+        <svg class="fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm5.6 14.1c-.2.7-1.4 1.300-1.900 1.400-.5.1-1.100.1-1.800-.1-.4-.1-1-.3-1.700-.6-3-1.300-4.900-4.300-5-4.500-.2-.2-1.200-1.600-1.200-3s.8-2.100 1-2.400c.3-.3.6-.3.800-.3h.6c.2 0 .4 0 .7.500l.9 2.200c.1.2.1.4 0 .6l-.4.6-.4.5c-.1.1-.3.300-.1.6.2.3.800 1.300 1.700 2.100 1.200 1 2.100 1.400 2.400 1.500.3.100.5.100.7-.1l.9-1.100c.2-.3.4-.2.7-.1l2.100 1c.3.2.5.2.6.400.1.200.1.800-.1 1.400z"/></svg>
+        تواصل على واتساب</a>
+      <a class="wa-num ltr" href="https://wa.me/963994398849" target="_blank" rel="noopener">+963 994 398 849</a>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-row">
+    <img src="assets/brand/logo-dark.svg" alt="نت راديوس" width="130" height="50" loading="lazy">
+    <nav aria-label="روابط"><a href="#noc">مراقبة الشبكة</a><a href="#features">المزايا</a><a href="#move">الانتقال</a><a href="#pricing">الأسعار</a><a href="demo/" target="_blank" rel="noopener">اللوحة التجريبية</a></nav>
+    <small>© <span class="ltr">2026</span> نت راديوس</small>
+  </div>
+</footer>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>
