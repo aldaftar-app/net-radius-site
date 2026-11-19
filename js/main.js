@@ -22,11 +22,14 @@
   const FADE = 0.05;
   const stageAlpha = (s, p) => clamp((p - s.from) / FADE) * clamp((s.to - p) / FADE);
 
+  // على شاشات اللمس: السكرول يقف عند كل عبارة، لا قبلها ولا بعدها. بعد الافتتاح يعود حرّاً.
+  const snapping = matchMedia('(pointer: coarse)').matches && !reduced && window.CSS && CSS.supports('scroll-snap-stop', 'always');
   let p = 0;
   function measure() {
     const r = hero.getBoundingClientRect(), span = r.height - window.innerHeight;
     p = span > 0 ? clamp(-r.top / span) : 0;
     nav.classList.toggle('light', r.bottom < 90);
+    if (snapping) document.documentElement.classList.toggle('hero-snap', r.bottom > 6);
   }
   function paint() {
     for (const k in stages) {
@@ -45,7 +48,42 @@
     bar.style.transform = `scaleX(${p.toFixed(4)})`;
     hint.style.opacity = p > 0.03 ? '0' : '1';
   }
-  const onScroll = () => { measure(); paint(); };
+  // الحارس: سحبة واحدة = عبارة واحدة. إن حاول الاندفاع أن يتجاوز العبارة التالية (سحبة عنيفة) نوقفه عندها.
+  // (الوقوف نفسه يقوم به المتصفح بـ scroll-snap؛ هذا للحالة التي يتجاوز فيها المتصفح نقطة وقوف.)
+  let gateLo = -1, gateHi = Infinity, armed = false, touching = false;
+  if (snapping) {
+    const marks = [...hero.querySelectorAll('.snap')];
+    const stops = () => marks.map((m) => Math.round(m.getBoundingClientRect().top + scrollY)).concat([hero.offsetHeight]).sort((x, y) => x - y);
+    let y0 = 0;
+    addEventListener('touchstart', () => {
+      touching = true; goId++; const y = y0 = scrollY, s = stops(), below = s.filter((v) => v < y - 12);
+      gateHi = s.find((v) => v > y + 12) ?? Infinity; gateLo = below.length ? below[below.length - 1] : -1;
+      armed = y < hero.offsetHeight + 4;
+    }, { passive: true });
+    // سحبة هادئة قصيرة تكفي: الاتجاه يقرر. تتقدم إلى العبارة التالية بدل أن ترتد إلى مكانها.
+    const up = () => {
+      touching = false; if (!armed) return;
+      const dy = scrollY - y0, to = dy > 36 ? gateHi : (dy < -36 ? gateLo : null);
+      if (to != null && to >= 0 && isFinite(to)) go(to);
+    };
+    // المتصفح قد يختار بنفسه أقرب نقطة وقوف (فيرتد)؛ نعيد الطلب مرة بعد لحظة، ونتأكد عند السكون
+    let goId = 0;
+    const go = (to) => {
+      const id = ++goId, send = () => { if (id === goId && !touching) window.scrollTo({ top: to, behavior: 'smooth' }); };
+      send(); setTimeout(send, 90);
+      setTimeout(() => { if (id === goId && !touching && Math.abs(scrollY - to) > 3) window.scrollTo({ top: to, behavior: 'smooth' }); }, 900);
+    };
+    addEventListener('touchend', up, { passive: true }); addEventListener('touchcancel', up, { passive: true });
+  }
+  function gate() {
+    if (!armed || touching) return;
+    const y = scrollY, to = y > gateHi + 2 ? gateHi : (y < gateLo - 2 ? gateLo : null);
+    if (to == null) return;
+    armed = false; const root = document.documentElement;
+    root.style.overflow = 'hidden'; window.scrollTo({ top: to, behavior: 'instant' });       // يوقف الاندفاع فوراً عند العبارة
+    requestAnimationFrame(() => requestAnimationFrame(() => { root.style.overflow = ''; }));
+  }
+  const onScroll = () => { if (snapping) gate(); measure(); paint(); };
   addEventListener('scroll', onScroll, { passive: true });
   addEventListener('resize', onScroll);
   onScroll();

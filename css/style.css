@@ -123,6 +123,12 @@ main { overflow-x: clip; }   /* لا شيء يوسّع الصفحة أفقياً
 .scroll-hint span::after { content: ''; position: absolute; top: 7px; left: 50%; width: 4px; height: 7px; margin-left: -2px; border-radius: 2px; background: #fff; animation: wheel 1.6s infinite; }
 @keyframes wheel { 0% { transform: translateY(0); opacity: 1; } 80%, 100% { transform: translateY(10px); opacity: 0; } }
 
+/* الوقوف عند كل عبارة (يُفعَّل من main.js على شاشات اللمس ما دام الافتتاح على الشاشة؛ بعده السكرول حرّ) */
+.hero .snap { position: absolute; inset-inline-start: 0; top: calc((100% - 100vh) * var(--p)); width: 1px; height: 1px; pointer-events: none; scroll-snap-align: start; scroll-snap-stop: always; }
+@supports (height: 100dvh) { .hero .snap { top: calc((100% - 100dvh) * var(--p)); } }
+html.hero-snap { scroll-snap-type: y mandatory; }
+html.hero-snap .stats { scroll-snap-align: start; }
+
 /* ---------- الأرقام ---------- */
 .stats { background: var(--ink); color: #fff; padding: 54px 0; position: relative; }
 .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
