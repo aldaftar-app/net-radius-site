@@ -182,7 +182,7 @@ html.hero-snap .stats { scroll-snap-align: start; }
 .section-sub { margin-top: 14px; color: var(--muted); font-size: 18px; }
 .price-box { margin: 46px auto 0; max-width: 940px; border-radius: 30px; padding: clamp(24px, 4vw, 44px); background: var(--paper); box-shadow: 0 0 0 1px var(--line), var(--shadow); }
 .sizes-label { text-align: center; font-weight: 600; font-size: 18px; }
-.sizes { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; margin-top: 16px; padding: 6px; border-radius: 18px; background: #fff; box-shadow: inset 0 0 0 1px var(--line); direction: ltr; }
+.sizes { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-top: 16px; padding: 6px; border-radius: 18px; background: #fff; box-shadow: inset 0 0 0 1px var(--line); direction: ltr; }
 .sizes button { font: inherit; font-weight: 600; font-size: 17px; font-feature-settings: 'tnum'; padding: 12px 4px; border: 0; border-radius: 13px; background: transparent; color: var(--muted); cursor: pointer; transition: background .25s, color .25s, transform .25s var(--ease), box-shadow .25s; }
 .sizes button:hover { color: var(--ink); background: rgba(14, 124, 107, .08); }
 .sizes button[aria-checked="true"] { background: var(--ink); color: #fff; box-shadow: 0 10px 22px -10px rgba(6, 35, 29, .7); transform: translateY(-1px); }
@@ -202,7 +202,7 @@ html.hero-snap .stats { scroll-snap-align: start; }
 .price-note a { color: var(--teal); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 .pricing + .demo { padding-top: clamp(70px, 9vw, 120px); }
 @media (max-width: 760px) {
-  .sizes { grid-template-columns: repeat(3, 1fr); }
+  .sizes { grid-template-columns: repeat(4, 1fr); }
   .sizes button { padding: 11px 2px; font-size: 16px; }
   .price-main { grid-template-columns: 1fr; }
   .price-side { justify-items: center; text-align: center; }
