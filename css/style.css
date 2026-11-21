@@ -50,6 +50,11 @@ main { overflow-x: clip; }   /* لا شيء يوسّع الصفحة أفقياً
 .btn-glass:hover { background: rgba(255, 255, 255, .2); }
 .btn-light { background: #fff; color: var(--ink); box-shadow: 0 16px 34px -14px rgba(0, 0, 0, .5); }
 .btn-sm { padding: 10px 20px; font-size: 15px; }
+.btn-ghost { background: transparent; color: #fff; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .4); }
+.btn-ghost:hover { background: rgba(255, 255, 255, .12); }
+.nav-login { padding-inline: 16px 18px; gap: 8px; }
+.nav-login svg { width: 18px; height: 18px; }
+.nav-links .menu-login { display: none; }
 
 /* ---------- الشريط العلوي ---------- */
 .nav { position: fixed; z-index: 50; top: 14px; inset-inline: 0; margin-inline: auto; width: min(1180px, 100% - 28px); height: 64px; padding-inline: 20px 12px;
@@ -73,6 +78,8 @@ main { overflow-x: clip; }   /* لا شيء يوسّع الصفحة أفقياً
 .nav.light .logo-on-dark { opacity: 0; } .nav.light .logo-on-light { opacity: 1; }
 .nav.light .nav-links a { color: var(--ink); } .nav.light .nav-links a:hover { background: rgba(6, 35, 29, .06); }
 .nav.light .nav-toggle span { background: var(--ink); }
+.nav.light .btn-ghost { color: var(--ink); box-shadow: inset 0 0 0 1px rgba(6, 35, 29, .22); }
+.nav.light .btn-ghost:hover { background: rgba(6, 35, 29, .06); }
 
 /* ---------- الافتتاح ---------- */
 .hero { position: relative; height: 520vh; background: var(--night); }
@@ -242,6 +249,7 @@ html.hero-snap .stats { scroll-snap-align: start; }
 
 /* ---------- الجوال واللوحي ---------- */
 @media (max-width: 980px) {
+  .nav { gap: 10px; } .nav-links { gap: 0; } .nav-links a { padding-inline: 9px; font-size: 15px; } .nav-login { padding-inline: 12px 14px; }
   .feature-row, .feature-row.flip { grid-template-columns: 1fr; }
   .feature-row.flip > .feature-text { order: 0; }
   .cards { grid-template-columns: repeat(2, 1fr); }
@@ -260,6 +268,8 @@ html.hero-snap .stats { scroll-snap-align: start; }
     opacity: 0; visibility: hidden; transform: translateY(-8px); transition: opacity .25s, transform .25s var(--ease), visibility .25s; }
   .nav.open .nav-links { opacity: 1; visibility: visible; transform: none; }
   .nav-links a, .nav.light .nav-links a { color: var(--ink); padding: 13px 14px; font-size: 16.5px; }
+  .nav-login { display: none; }
+  .nav-links .menu-login, .nav.light .nav-links .menu-login { display: block; color: var(--teal); font-weight: 700; margin-top: 4px; border-top: 1px solid var(--line); border-radius: 0 0 12px 12px; }
   .hero { height: 440vh; }
   .hero-side { background: linear-gradient(to top, rgba(4, 21, 18, .95) 0%, rgba(4, 21, 18, .8) 36%, rgba(4, 21, 18, 0) 70%); }
   .stage-a { top: auto; bottom: 84px; transform: translateY(calc(-1 * var(--shift, 0px))); inset-inline-start: 20px; }
