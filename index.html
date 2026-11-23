@@ -252,38 +252,55 @@
     <div class="wrap">
       <div class="section-head reveal">
         <span class="eyebrow">الأسعار</span>
-        <h2>سعر واحد في السنة، حسب حجم شبكتك</h2>
-        <p class="section-sub">لوحتك على سيرفر مستضاف. الحجم هو عدد المشتركين المتصلين في اللحظة نفسها، لا عدد الحسابات. وكل المزايا في كل الأحجام.</p>
+        <h2>سعر على قدّ شبكتك، وكل المزايا في كل الأحجام</h2>
+        <p class="section-sub">سعر واحد لسنة كاملة. والحجم هو أكبر عدد من المشتركين يتصلون في اللحظة نفسها، لا عدد الحسابات.</p>
       </div>
       <div class="price-box reveal">
+        <div class="place" id="place" role="radiogroup" aria-label="أين تعمل لوحتك">
+          <button type="button" role="radio" aria-checked="true" data-place="online">على سيرفرنا</button>
+          <button type="button" role="radio" aria-checked="false" data-place="local">على جهاز عندك</button>
+        </div>
         <p class="sizes-label">كم مشتركاً يتصل عندك في وقت واحد؟</p>
         <div class="sizes" id="sizes" role="radiogroup" aria-label="عدد المشتركين المتصلين">
-          <button type="button" role="radio" aria-checked="false" data-users="300" data-price="100">300</button>
-          <button type="button" role="radio" aria-checked="false" data-users="650" data-price="150">650</button>
-          <button type="button" role="radio" aria-checked="true" data-users="1000" data-price="250">1000</button>
-          <button type="button" role="radio" aria-checked="false" data-users="1500" data-price="300">1500</button>
-          <button type="button" role="radio" aria-checked="false" data-users="2000" data-price="350">2000</button>
-          <button type="button" role="radio" aria-checked="false" data-users="2500" data-price="400">2500</button>
-          <button type="button" role="radio" aria-checked="false" data-users="3000" data-price="450">3000</button>
+          <button type="button" role="radio" aria-checked="false" data-users="300" data-online="150" data-local="150" data-plan="start">300</button>
+          <button type="button" role="radio" aria-checked="false" data-users="600" data-online="250" data-local="250" data-plan="start">600</button>
+          <button type="button" role="radio" aria-checked="true" data-users="1000" data-online="350" data-local="300" data-plan="grow">1000</button>
+          <button type="button" role="radio" aria-checked="false" data-users="1500" data-online="450" data-local="350" data-plan="grow">1500</button>
+          <button type="button" role="radio" aria-checked="false" data-users="2000" data-online="550" data-local="450" data-plan="pro">2000</button>
+          <button type="button" role="radio" aria-checked="false" data-users="3000" data-online="700" data-local="550" data-plan="pro">3000</button>
         </div>
+        <div class="plan-bands" aria-hidden="true"><span data-plan="start">انطلاق</span><span data-plan="grow">نمو</span><span data-plan="pro">احتراف</span></div>
         <div class="price-main">
           <div class="price-side">
+            <span class="plan-name">خطة «<b id="pPlan">نمو</b>»</span>
             <span class="price-label">حتى <b class="ltr" id="pUsers">1000</b> مشترك متصل</span>
-            <div class="price-num"><span class="ltr"><b id="pPrice">250</b><i>$</i></span><small>في السنة</small></div>
-            <span class="price-month">أي أقل من <b class="ltr"><span id="pMonth">21</span> $</b> في الشهر</span>
+            <div class="price-num"><span class="ltr"><b id="pPrice">350</b><i>$</i></span><small>في السنة</small></div>
+            <span class="price-month" id="pSub">أي أقل من <b class="ltr">30 $</b> في الشهر</span>
             <a class="btn btn-primary" id="pBtn" href="https://wa.me/963994398849" target="_blank" rel="noopener">اطلب هذا الحجم</a>
           </div>
           <ul class="ticks price-list">
-            <li>لوحتك على الإنترنت بعنوانك الخاص، تفتحها من أي مكان</li>
             <li>كل مزايا النظام، بلا استثناء</li>
             <li>مدراء وموظفون ووكلاء بلا حدّ للعدد</li>
             <li>مراقبة الشبكة والخريطة وتنبيهات واتساب</li>
             <li>صفحة «حسابي» لكل مشترك</li>
+            <li class="at" data-place="online">لوحتك على سيرفرنا بعنوانك الخاص، تفتحها من أي مكان</li>
+            <li class="at" data-place="local">لوحتك على جهاز عندك وبياناتك معك، وتفتحها من أي مكان</li>
             <li>نسخ احتياطي تلقائي وتحديثات النظام</li>
-            <li>استيراد مشتركيك من نظامك القديم</li>
+            <li>نقل مشتركيك من نظامك القديم</li>
+            <li class="for" data-plan="start">دعم على واتساب بالكتابة</li>
+            <li class="for" data-plan="grow">دعم على واتساب بالكتابة والاتصال</li>
+            <li class="for" data-plan="grow">نضبط راوتراتك معك</li>
+            <li class="for" data-plan="pro">أولوية في الدعم، بالكتابة والاتصال</li>
+            <li class="for" data-plan="pro">نضبط راوتراتك معك، ونكون معك ليلة النقل</li>
           </ul>
         </div>
-        <p class="price-note">السعر لسنة كاملة على سيرفر مستضاف، ومعه السيرفر والنسخ الاحتياطي والتحديثات. أكثر من <span class="ltr">3000</span> متصل، أو تريده على جهاز عندك؟ <a href="https://wa.me/963994398849" target="_blank" rel="noopener">تواصل معنا</a>.</p>
+        <div class="price-facts">
+          <div><b>التركيب ونقل مشتركيك علينا</b><span>بلا رسم بدء: نركّب لوحتك وننقل مشتركيك من نظامك القديم.</span></div>
+          <div><b>إن كبرت شبكتك لا نقطع أحداً</b><span>تصلك رسالة لتنتقل إلى الحجم التالي، وتدفع الفرق عن الأشهر الباقية فقط.</span></div>
+          <div><b>أقل من <span class="ltr">1%</span> من دخل شبكتك</b><span>حتى لو كان كل مشتركيك على اشتراك <span class="ltr">5 $</span> في الشهر.</span></div>
+          <div><b>تدفع بالدولار أو بشام كاش</b><span>نقداً، أو تحويلاً من حسابك في شام كاش إلى حسابنا.</span></div>
+        </div>
+        <p class="price-note">أكثر من <span class="ltr">3000</span> متصل؟ <a href="https://wa.me/963994398849" target="_blank" rel="noopener">تواصل معنا</a> لسعر على قدّ شبكتك.</p>
       </div>
     </div>
   </section>

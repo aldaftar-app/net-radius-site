@@ -96,24 +96,36 @@
       .catch((e) => { console.warn('hero3d:', e && e.message); });
   }
 
-  /* ---------- الأسعار: اختيار حجم الشبكة ---------- */
-  const sizes = $('#sizes');
-  if (sizes) {
+  /* ---------- الأسعار: حجم الشبكة ومكان اللوحة ---------- */
+  // السعر السنوي في الزر نفسه: data-online على سيرفرنا، وdata-local على جهاز الزبون (أرخص من حجم 1000 وفوق، بأرقام المالك)
+  const sizes = $('#sizes'), place = $('#place');
+  if (sizes && place) {
     const WA = 'https://wa.me/963994398849?text=';
-    const pick = (b) => {
-      sizes.querySelectorAll('button').forEach((x) => x.setAttribute('aria-checked', String(x === b)));
-      const users = b.dataset.users, price = Number(b.dataset.price);
-      $('#pUsers').textContent = users; $('#pPrice').textContent = price; $('#pMonth').textContent = Math.floor(price / 12) + 1;
-      $('#pBtn').href = WA + encodeURIComponent(`مرحباً، أريد نت راديوس لشبكة حتى ${users} مشترك متصل (${price} $ في السنة)`);
+    const PLAN = { start: 'انطلاق', grow: 'نمو', pro: 'احتراف' };
+    let size = sizes.querySelector('[aria-checked="true"]'), at = 'online';
+    const show = () => {
+      const users = size.dataset.users, plan = size.dataset.plan, online = Number(size.dataset.online), price = Number(size.dataset[at]);
+      $('#pUsers').textContent = users; $('#pPlan').textContent = PLAN[plan]; $('#pPrice').textContent = price;
+      $('#pSub').innerHTML = `أي أقل من <b class="ltr">${Math.floor(price / 12) + 1} $</b> في الشهر`
+        + (at === 'local' ? (price < online ? `، وأقل بـ<b class="ltr">${online - price} $</b> من سعر سيرفرنا` : '، والسعر نفسه على سيرفرنا') : '');
+      document.querySelectorAll('.pricing [data-plan]').forEach((el) => { if (!el.matches('#sizes button')) el.classList.toggle('on', el.dataset.plan === plan); });
+      document.querySelectorAll('.pricing li[data-place]').forEach((el) => el.classList.toggle('on', el.dataset.place === at));
+      $('#pBtn').href = WA + encodeURIComponent(`مرحباً، أريد نت راديوس لشبكة حتى ${users} مشترك متصل، خطة «${PLAN[plan]}» ${at === 'local' ? 'على جهاز عندي' : 'على سيرفركم'} (${price} $ في السنة)`);
     };
-    sizes.addEventListener('click', (e) => { const b = e.target.closest('button'); if (b) pick(b); });
-    sizes.addEventListener('keydown', (e) => {                     // الأسهم تنقل الاختيار
-      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
-      const all = [...sizes.querySelectorAll('button')], i = all.findIndex((x) => x.getAttribute('aria-checked') === 'true');
-      const n = all[Math.min(all.length - 1, Math.max(0, i + (e.key === 'ArrowRight' ? 1 : -1)))];
-      n.focus(); pick(n); e.preventDefault();
-    });
-    pick(sizes.querySelector('[aria-checked="true"]'));
+    const group = (box, onPick) => {                                // مجموعة أزرار يُختار منها واحد
+      const pick = (b) => { box.querySelectorAll('button').forEach((x) => x.setAttribute('aria-checked', String(x === b))); onPick(b); show(); };
+      box.addEventListener('click', (e) => { const b = e.target.closest('button'); if (b) pick(b); });
+      box.addEventListener('keydown', (e) => {                     // الأسهم تنقل الاختيار
+        if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+        const all = [...box.querySelectorAll('button')], i = all.findIndex((x) => x.getAttribute('aria-checked') === 'true');
+        const step = (e.key === 'ArrowRight' ? 1 : -1) * (getComputedStyle(box).direction === 'rtl' ? -1 : 1);
+        const n = all[Math.min(all.length - 1, Math.max(0, i + step))];
+        n.focus(); pick(n); e.preventDefault();
+      });
+    };
+    group(sizes, (b) => { size = b; });
+    group(place, (b) => { at = b.dataset.place; });
+    show();
   }
 
   /* ---------- الظهور مع السكرول ---------- */
