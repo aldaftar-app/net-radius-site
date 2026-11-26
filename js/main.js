@@ -75,6 +75,50 @@
     };
     addEventListener('touchend', up, { passive: true }); addEventListener('touchcancel', up, { passive: true });
   }
+  // على الحاسوب أيضاً (طلب المالك 26 تشرين الثاني: «يوقف عند كل عبارة متل يلي عملناها بالموبايل»): دحرجة واحدة
+  // بالعجلة أو بلوحة اللمس = عبارة واحدة، تنزلق إليها الصفحة وتقف عندها. ما يبقى من اندفاع لوحة اللمس بعد الدحرجة
+  // لا يتجاوزها: الخطوة التالية تنتظر أن تسكن اليد. والأسهم وPage Down والمسافة مثلها. بعد الافتتاح يعود السكرول حرّاً.
+  const stepping = !snapping && !reduced && matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (stepping) {
+    const marks = [...hero.querySelectorAll('.snap')];
+    const stops = () => marks.map((m) => Math.round(m.getBoundingClientRect().top + scrollY)).concat([hero.offsetHeight]).sort((x, y) => x - y);
+    const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+    let busy = false, last = 0;
+    const glide = (to) => {
+      const from = scrollY, d = to - from, ms = Math.min(1150, 560 + Math.abs(d) * 0.32), t0 = performance.now();
+      busy = true;
+      const step = (now) => {
+        const t = Math.min(1, (now - t0) / ms);
+        window.scrollTo({ top: from + d * ease(t), behavior: 'instant' });
+        if (t < 1) requestAnimationFrame(step); else busy = false;
+      };
+      requestAnimationFrame(step);
+    };
+    // أين يقف: العبارة التالية في اتجاه الدحرجة (ونهاية الافتتاح بعد آخرها). خارج الافتتاح لا شيء
+    const target = (down) => {
+      const y = scrollY, s = stops(), end = s[s.length - 1];
+      if (!(y < end - 2 || (!down && y <= end + 2))) return undefined;
+      return (down ? s.find((v) => v > y + 12) : [...s].reverse().find((v) => v < y - 12)) ?? null;
+    };
+    addEventListener('wheel', (e) => {
+      if (e.ctrlKey || Math.abs(e.deltaY) < Math.abs(e.deltaX) || !e.deltaY) return;
+      const to = target(e.deltaY > 0);
+      if (to === undefined) return;
+      e.preventDefault();
+      const now = performance.now(), quiet = now - last > 170; last = now;
+      if (busy || !quiet || to === null) return;
+      glide(to);
+    }, { passive: false });
+    addEventListener('keydown', (e) => {
+      if (e.altKey || e.ctrlKey || e.metaKey || (e.target.closest && e.target.closest('input, textarea, select, button, a, [contenteditable]'))) return;
+      const k = e.key, down = k === 'ArrowDown' || k === 'PageDown' || (k === ' ' && !e.shiftKey), up = k === 'ArrowUp' || k === 'PageUp' || (k === ' ' && e.shiftKey);
+      if (!down && !up) return;
+      const to = target(down);
+      if (to === undefined) return;
+      e.preventDefault();
+      if (!busy && to !== null) glide(to);
+    });
+  }
   function gate() {
     if (!armed || touching) return;
     const y = scrollY, to = y > gateHi + 2 ? gateHi : (y < gateLo - 2 ? gateLo : null);
