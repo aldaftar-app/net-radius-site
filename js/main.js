@@ -83,16 +83,31 @@
     const marks = [...hero.querySelectorAll('.snap')];
     const stops = () => marks.map((m) => Math.round(m.getBoundingClientRect().top + scrollY)).concat([hero.offsetHeight]).sort((x, y) => x - y);
     const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-    let busy = false, last = 0;
+    let busy = false, last = 0, ended = 0, hist = [];
     const glide = (to) => {
-      const from = scrollY, d = to - from, ms = Math.min(1150, 560 + Math.abs(d) * 0.32), t0 = performance.now();
+      const from = scrollY, d = to - from, ms = Math.min(950, 480 + Math.abs(d) * 0.28), t0 = performance.now();
       busy = true;
       const step = (now) => {
         const t = Math.min(1, (now - t0) / ms);
         window.scrollTo({ top: from + d * ease(t), behavior: 'instant' });
-        if (t < 1) requestAnimationFrame(step); else busy = false;
+        if (t < 1) requestAnimationFrame(step); else { busy = false; ended = performance.now(); }
       };
       requestAnimationFrame(step);
+    };
+    // عجلة الفأرة تأتي بنقرات، ولوحة اللمس بسيل يتباطأ وحده بعد أن ترفع إصبعك. نقرة العجلة بعد انتهاء الانزلاق
+    // تكفي للعبارة التالية؛ وفي لوحة اللمس نفرّق سحبة جديدة (يكبر سيلها) عمّا بقي من اندفاع السابقة (يصغر)
+    // (كان شرط «سكون 170 ms» وحده يُضيع دحرجة العجلة المتصلة والسحبة الثانية قبل أن يهدأ اندفاع الأولى)
+    const notch = (e) => e.deltaMode === 1 || (!!e.wheelDeltaY && e.wheelDeltaY % 120 === 0 && e.wheelDeltaY !== -3 * e.deltaY);
+    let pgap = Infinity;
+    const allow = (e, now) => {
+      const a = Math.abs(e.deltaY), prev = hist.slice(-2), gap = now - last, quiet = gap > 170, sparse = gap >= 45 && pgap >= 45;
+      hist.push(a); if (hist.length > 6) hist.shift(); pgap = gap;
+      if (busy || now - ended < 120) return false;
+      if (notch(e) || quiet) return true;
+      // نقرة عجلة لم يسمّها المتصفح: نقرات متفرقة كل واحدة بعد فاصل، ولوحة اللمس سيلها كل 16 ms تقريباً
+      // (فاصل واحد في وسط اندفاع لوحة اللمس لا يكفي)
+      if (sparse && a >= 4 && (!prev.length || a >= prev[prev.length - 1])) return true;   // (اندفاع يصغر لا يُحسب)
+      return a >= 6 && prev.length === 2 && a > 1.4 * Math.max(...prev);       // سحبة جديدة: سيل يكبر
     };
     // أين يقف: العبارة التالية في اتجاه الدحرجة (ونهاية الافتتاح بعد آخرها). خارج الافتتاح لا شيء
     const target = (down) => {
@@ -105,9 +120,8 @@
       const to = target(e.deltaY > 0);
       if (to === undefined) return;
       e.preventDefault();
-      const now = performance.now(), quiet = now - last > 170; last = now;
-      if (busy || !quiet || to === null) return;
-      glide(to);
+      const now = performance.now(), ok = allow(e, now); last = now;
+      if (ok && to !== null) glide(to);
     }, { passive: false });
     addEventListener('keydown', (e) => {
       if (e.altKey || e.ctrlKey || e.metaKey || (e.target.closest && e.target.closest('input, textarea, select, button, a, [contenteditable]'))) return;
